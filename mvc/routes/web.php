@@ -13,9 +13,11 @@ Route::post('/client/delete', 'ClientController@delete');
 
 // Manufacturer controller
 Route::get('/manufacturer', 'ManufacturerController@index');
+Route::get('/manufacturer/show', 'ManufacturerController@show');
 
 // Automobile controller
 Route::get('/automobile', 'AutomobileController@index');
+Route::get('/automobile/show', 'AutomobileController@show');
 
 // Automobile-bill controller
 Route::get('/bill', 'AutomobileBillController@index');
@@ -24,5 +26,6 @@ Route::post('/bill/create', 'AutomobileBillController@store');
 Route::get('/bill/show', 'AutomobileBillController@show');
 
 // Bill controller
+//Route::get('bill/show', 'BillController@show');
 
 Route::dispatch();

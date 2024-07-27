@@ -19,6 +19,14 @@
             {% if errors.qt is defined %}
                 <span class="error">{{ errors.qt }}</span>
             {% endif %}
+            <label>Client
+                <select name="name">
+                    <option value="null">Veuillez choisir une option :</option>
+                {% for name in clients %}
+                    <option value=" {{ name.name }} ">{{ name.name }}</option>
+                {% endfor %}
+                </select>
+            </label>
             <input type="submit" class="btn" value="Save">
         </form>
     </div>

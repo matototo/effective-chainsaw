@@ -3,6 +3,9 @@ namespace App\Controllers;
 
 use App\Models\AutomobileBill;
 use App\Models\Automobile;
+use App\Models\Bill;
+use App\Models\Client;
+//use App\Models\Manufacturer;
 use App\Providers\View;
 use App\Providers\Validator;
 
@@ -15,17 +18,17 @@ class AutomobileBillController{
 
     public function create() {
         $autos = new Automobile;
-        //$bills = new Bill;
+        $clients = new Client;
+        $names = $clients->select();
         $serials = $autos->select();
-        //$numbers = $bills->select();
-        View::render('bill/create', ['serials' => $serials]);
+        View::render('bill/create', ['serials' => $serials, 'clients' => $names]);
     }
 
 
     public function show($data = []){
         if(isset($_GET['id']) && $data['id']!=null){
-            $automobileBill = new AutomobileBill;
-            $selectId = $automobileBill->selectId($data['id']);
+            $bill = new Bill;
+            $selectId = $bill->selectId($data['id']);
             if($selectId){
                 return View::render('bill/show', ['bill'=>$selectId]);
             }else{
@@ -43,8 +46,12 @@ class AutomobileBillController{
         $validator->field('serial_number', $data['serial_number'])->min(17)->max(17);
         $validator->field('qt', $data['qt'])->min(1);
         if($validator->isSuccess()){
+            $auto = new Automobile;
             $automobileBill = new AutomobileBill;
-            $automobileBill->total = $data['qt'] * 
+            $client = new Client;
+            $selectIdAuto= $auto->selectId($data['serial_number']);
+            $selectIdClient = $client->selectId($data['name']);
+            $total = $data['qt'] * $selectIdAuto['price'];
             $insert = $automobileBill->insert($data);
             
             if($insert){
@@ -58,4 +65,7 @@ class AutomobileBillController{
     }
     }
 }
+
+//FIXME: le insert pour la table bill marche pas
+//TODO: CSS
 
