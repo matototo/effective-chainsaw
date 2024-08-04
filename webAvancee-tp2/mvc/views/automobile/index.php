@@ -18,18 +18,10 @@
                 <td>{{ automobile.year }}</td>
                 <td>{{ automobile.category }}</td>
                 <td>{{ automobile.type }}</td>
-                <td>{{ automobile.price }}</td>
+                <td class="money">{{ automobile.price }} $</td>
             </tr>
           {% endfor %}
         </tbody>
     </table>
+    <a href="{{base}}/client" class="btn">Back</a>
 {{ include('layouts/footer.php')}}
-
-<!--
-<th>Serial number</th>
-<td>{{ automobile.serial_number }}</td>
-<th>Drive Train</th>
-<td>{{ automobile.drive_train }}</td>
-<th>Description</th>
-<td>{{ automobile.description }}</td>
--->

@@ -8,6 +8,7 @@ use App\Models\Client;
 //use App\Models\Manufacturer;
 use App\Providers\View;
 use App\Providers\Validator;
+use DateTime;
 
 class AutomobileBillController{
     public function index() {
@@ -20,8 +21,8 @@ class AutomobileBillController{
         $autos = new Automobile;
         $clients = new Client;
         $names = $clients->select();
-        $serials = $autos->select();
-        View::render('bill/create', ['serials' => $serials, 'clients' => $names]);
+        $cars = $autos->select();
+        View::render('bill/create', ['cars' => $cars, 'clients' => $names]);
     }
 
 
@@ -42,27 +43,31 @@ class AutomobileBillController{
 
     public function store($data=[]){
 
-        $validator = new Validator;
-        $validator->field('serial_number', $data['serial_number'])->min(17)->max(17);
-        $validator->field('qt', $data['qt'])->min(1);
-        if($validator->isSuccess()){
-            $auto = new Automobile;
-            $automobileBill = new AutomobileBill;
-            $client = new Client;
-            $selectIdAuto= $auto->selectId($data['serial_number']);
-            $selectIdClient = $client->selectId($data['name']);
-            $total = $data['qt'] * $selectIdAuto['price'];
-            $insert = $automobileBill->insert($data);
-            
-            if($insert){
-                return View::redirect('bill/show?id='.$insert);
-            }else{
-                return View::render('error');
-            }
-    }else{
-            $errors = $validator->getErrors();
-            return View::render('bill/create', ['errors'=>$errors, 'bill'=>$data]);
-    }
+        $auto = new Automobile;
+        $autoBill = new AutomobileBill;
+        $bill = new Bill;
+        $client = new Client;
+        $currentClient = $client->selectId($data['client_id']);;
+
+        $currentAuto = $auto->select();
+
+        $currentAuto = $currentAuto[0];
+
+        $data['total'] = $data['qt'] * $currentAuto['price'];
+
+        $currentDateTime = new DateTime('now');
+        $currentDate = $currentDateTime->format('Y-m-d');
+
+        $data['bill_date'] = $currentDate;
+
+        $serial = $currentAuto['serial_number'];
+
+        $theCar = $auto->selectId($serial);
+  
+        var_dump($data);
+
+        //$insertBill = $bill->insert($data);
+
     }
 }
 

@@ -1,6 +1,6 @@
     </main>
     <footer>
         <p>Copy Right 2024</p>
-    <footer>
+    </footer>
 </body>
 </html>

@@ -1,7 +1,7 @@
-{{ include('layouts/header.php', {title:'Edit Client'})}}
+{{ include('layouts/header.php', {title:'Create Client'})}}
     <div class="container">
-    <form  method="post">
-            <h2>Edit Client</h2>
+        <form  method="post">
+            <h3>New Client</h3>
             <label>Name
                 <input type="text" name="name" value="{{ client.name}}">
             </label>
@@ -33,10 +33,10 @@
                 <span class="error">{{ errors.email }}</span>
             {% endif %}
             <label>Date of birth
-                <input type="text" name="date_of_birth" value="{{ client.date_of_birth }}">
+                <input type="date" name="date_of_birth"  value="{{ client.date_of_birth}}">
             </label>
             {% if errors.date_of_birth is defined %}
-                <span class="error"> {{ errors.date_of_birth }}</span>
+                <span class="error">{{ errors.date_of_birth }}</span>
             {% endif %}
             <input type="submit" class="btn" value="Save">
         </form>

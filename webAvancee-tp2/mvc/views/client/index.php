@@ -22,5 +22,8 @@
           {% endfor %}
         </tbody>
     </table>
-    <a href="{{base}}/client/create" class="btn">New Client</a>
+    <div class="buttons">
+        <div></div>
+        <a href="{{base}}/client/create" class="btn">New Client</a>
+    </div>
 {{ include('layouts/footer.php')}}
