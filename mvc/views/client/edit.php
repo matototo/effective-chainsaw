@@ -38,8 +38,14 @@
             {% if errors.date_of_birth is defined %}
                 <span class="error"> {{ errors.date_of_birth }}</span>
             {% endif %}
-            <input type="submit" class="btn" value="Save">
+            <div class="buttons">
+                <div>
+                    <a href="{{base}}/client" class="btn back">Back</a>
+                </div>
+                <div>
+                    <input type="submit" class="btn" value="Save">
+                </div>
+            </div>
         </form>
-        <a href="{{base}}/client" class="btn back">Back</a>
     </div>
 {{ include('layouts/footer.php')}}

@@ -90,14 +90,12 @@ ul li a:before{
     height:100%;
     background:var(--couleur-bleu-clair);
     transition:0.2s;
-    transform-origin:right;
     transform:scaleX(0);
     z-index:-1;
 }
   
 ul li a:hover:before{
     transition:transform 0.2s;
-    transform-origin:left;
     transform:scaleX(1);
 }
 
@@ -320,33 +318,3 @@ https://codetheweb.blog/style-a-navigation-bar-css/
 https://www.digitalocean.com/community/tutorials/css-variable-fonts
 https://codepen.io/sbgoswami/pen/WWMQYQ
 https://codepen.io/zachsaffrin/pen/oNraGw
-
-table {
-  background: #012B39;
-  border-radius: 0.25em;
-  border-collapse: collapse;
-  margin: 1em;
-}
-th {
-  border-bottom: 1px solid #364043;
-  color: #E2B842;
-  font-size: 0.85em;
-  font-weight: 600;
-  padding: 0.5em 1em;
-  text-align: left;
-}
-td {
-  color: #fff;
-  font-weight: 400;
-  padding: 0.65em 1em;
-}
-.disabled td {
-  color: #4F5F64;
-}
-tbody tr {
-  transition: background 0.25s ease;
-}
-tbody tr:hover {
-  background: #014055;
-}
-*/

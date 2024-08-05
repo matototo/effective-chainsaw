@@ -1,11 +1,7 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2761
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;}
-{\colortbl;\red255\green255\blue255;\red98\green0\blue117;\red223\green223\blue223;\red52\green52\blue52;
-\red7\green64\blue153;\red135\green136\blue100;\red16\green120\blue67;\red19\green85\blue52;\red25\green0\blue135;
-}
-{\*\expandedcolortbl;;\cssrgb\c46667\c0\c53333;\cssrgb\c89804\c89804\c89804;\cssrgb\c26667\c26667\c26667;
-\cssrgb\c0\c33333\c66667;\cssrgb\c60000\c60000\c46667;\cssrgb\c0\c53333\c33333;\cssrgb\c6667\c40000\c26667;\cssrgb\c13333\c6667\c60000;
-}
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
 \margl1440\margr1440\vieww14200\viewh9080\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
@@ -23,26 +19,42 @@ CREATE TABLE IF NOT EXISTS `bibliotheque`.`manufacturer` (\
 	`year_of_creation` DATE NOT NULL,\
 	`ranking` INT NOT NULL,\
 	PRIMARY KEY (`id`));\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+CREATE TABLE IF NOT EXISTS `bibliotheque`.`automobile` (\
+	`serial_number` VARCHAR(17) NOT NULL,\
+	`name` VARCHAR(45) NOT NULL,\
+	`year` DATE NOT NULL,\
+	`drive_train` VARCHAR(45) NOT NULL,\
+	`category` VARCHAR(45) NOT NULL,\
+	`type` VARCHAR(45) NOT NULL,\
+	`price` FLOAT NOT NULL,\
+	`description` TEXT NOT NULL,\
+	`manufacturer_id` INT NOT NULL,\
+	FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(id),\
+	PRIMARY KEY (`serial_number`));\
 \
-\pard\pardeftab720\partightenfactor0
-{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/create-table.html"}}{\fldrslt 
-\f1\fs26\fsmilli13120 \cf2 \cb3 \expnd0\expndtw0\kerning0
-CREATE}}
-\f1\fs26\fsmilli13120 \cf4 \cb3 \expnd0\expndtw0\kerning0
-\'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/create-table.html"}}{\fldrslt \cf2 TABLE}}\'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/control-flow-functions.html%23function_if"}}{\fldrslt \cf2 IF}}\'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf2 EXISTS\cf4 \'a0\cf5 `bibliotheque`\cf4 .\cf5 `automobile`\cf4 \'a0\cf6 (\cf4 \'a0\
-\pard\pardeftab720\partightenfactor0
-\cf5 `serial_number`\cf4 \'a0\cf7 VARCHAR\cf6 (\cf8 17\cf6 )\cf4 \'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf9 NULL\cf4 ,\'a0\
-\cf5 `name`\cf4 \'a0\cf7 VARCHAR\cf6 (\cf8 45\cf6 )\cf4 \'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf9 NULL\cf4 ,\'a0\
-\cf5 `year`\cf4 \'a0\cf7 DATE\cf4 \'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf9 NULL\cf4 ,\'a0\
-\cf5 `drive_train`\cf4 \'a0\cf7 VARCHAR\cf6 (\cf8 45\cf6 )\cf4 \'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf9 NULL\cf4 ,\'a0\
-\cf5 `category`\cf4 \'a0\cf7 VARCHAR\cf6 (\cf8 45\cf6 )\cf4 \'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf9 NULL\cf4 ,\'a0\
-\cf5 `type`\cf4 \'a0\cf7 VARCHAR\cf6 (\cf8 45\cf6 )\cf4 \'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf9 NULL\cf4 ,\'a0\
-\cf5 `price`\cf4 \'a0\cf7 FLOAT\cf4 \'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf9 NULL\cf4 ,\'a0\
-\cf5 `description`\cf4 \'a0\cf7 TEXT\cf4 \'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf9 NULL\cf4 ,\'a0\
-\cf5 `manufacturer_id`\cf4 \'a0\cf7 INT\cf4 \'a0{\field{\*\fldinst{HYPERLINK "http://localhost/phpMyAdmin5/url.php?url=https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html%23operator_not"}}{\fldrslt \cf2 NOT}}\'a0\cf9 NULL\cf4 ,\'a0\
-\cf2 FOREIGN\cf4 \'a0\cf2 KEY\cf4 \'a0\cf6 (\cf4 manufacturer_id\cf6 )\cf4 \'a0\cf2 REFERENCES\cf4 \'a0manufacturer\cf6 (\cf4 id\cf6 )\cf4 ,\'a0\
-\cf2 PRIMARY\cf4 \'a0\cf2 KEY\cf4 \'a0\cf6 (\cf5 `serial_number`\cf6 ))\cf4 ;
-\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 CREATE TABLE IF NOT EXISTS `bibliotheque`.`client` (\
+	`id` INT NOT NULL AUTO_INCREMENT,\
+	`name` VARCHAR(45) NOT NULL,\
+	`address` VARCHAR(45) NOT NULL,\
+	`phone` VARCHAR(45) NOT NULL,\
+	`zip_code` VARCHAR(10) NOT NULL,\
+	`email` VARCHAR(45) NOT NULL,\
+	`date_of_birth` VARCHAR(12) NOT NULL,\
+	PRIMARY KEY (`id`));	\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 CREATE TABLE IF NOT EXISTS `bibliotheque`.`bill` (\
+	`bill_number` INT NOT NULL AUTO_INCREMENT,\
+	`bill_date` VARCHAR(12) NOT NULL,\
+	`client_id` INT NOT NULL,\
+	FOREIGN KEY (client_id) REFERENCES client(id),\
+	PRIMARY KEY (`bill_number`));\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
 CREATE TABLE IF NOT EXISTS `bibliotheque`.`automobile_bill` (\
@@ -53,27 +65,9 @@ CREATE TABLE IF NOT EXISTS `bibliotheque`.`automobile_bill` (\
 	`bill_number` INT NOT NULL,\
 	FOREIGN KEY (serial_number) REFERENCES automobile(serial_number),\
 	FOREIGN KEY (bill_number) REFERENCES bill(bill_number),\
-	PRIMARY KEY (id));\
-\
-\
-CREATE TABLE IF NOT EXISTS `bibliotheque`.`bill` (\
-	`bill_number` INT NOT NULL,\
-	`bill_date` DATE NOT NULL,\
-	`client_id` INT NOT NULL,\
-	FOREIGN KEY (client_id) REFERENCES client(id),\
-	PRIMARY KEY (`bill_number`));\
-\
-CREATE TABLE IF NOT EXISTS `bibliotheque`.`client` (\
-	`id` INT NOT NULL AUTO_INCREMENT,\
-	`name` VARCHAR(45) NOT NULL,\
-	`address` VARCHAR(45) NOT NULL,\
-	`phone` VARCHAR(45) NOT NULL,\
-	`zip_code` VARCHAR(10) NOT NULL,\
-	`email` VARCHAR(45) NOT NULL,\
-	`date_of_birth` DATE NOT NULL,\
 	PRIMARY KEY (`id`));\
 \
--- Insertion de donn\'e9es dans la table manufacturer\
+\
 INSERT INTO `bibliotheque`.`manufacturer` (`name`, `address`, `phone`, `country_of_origin`, `year_of_creation`, `ranking`)\
 VALUES\
 ('Toyota', '1 Toyota-cho, Toyota City, Aichi 471-8571, Japan', '+81-565-28-2121', 'Japan', '1937-08-28', 1),\
@@ -82,7 +76,7 @@ VALUES\
 ('Honda', '2-1-1 Minami-Aoyama, Minato-ku, Tokyo 107-8556, Japan', '+81-3-3423-1111', 'Japan', '1948-09-24', 4),\
 ('Renault', '13-15 quai Alphonse Le Gallo, 92100 Boulogne-Billancourt, France', '+33-1-76-84-04-04', 'France', '1899-02-25', 5);\
 \
--- Insertion de donn\'e9es dans la table automobile\
+\
 INSERT INTO `bibliotheque`.`automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`)\
 VALUES\
 ('1HGBH41JXMN109186', 'Toyota Camry', '2020-01-15', 'FWD', 'Sedan', 'Gasoline', 24000, 'A reliable and comfortable midsize sedan.', 1),\
@@ -91,8 +85,7 @@ VALUES\
 ('2HGFA16508H123456', 'Honda Civic', '2022-03-11', 'FWD', 'Sedan', 'Hybrid', 22000, 'A popular compact car with great fuel efficiency.', 4),\
 ('VF1RFA00663412345', 'Renault Clio', '2018-11-05', 'FWD', 'Hatchback', 'Gasoline', 18000, 'A small and versatile hatchback.', 5);\
 \
--- Insertion de donn\'e9es dans la table client\
--- Insertion de donn\'e9es dans la table client avec la colonne zip_code\
+\
 INSERT INTO `bibliotheque`.`client` (`name`, `address`, `phone`, `zip_code`, `email`, `date_of_birth`)\
 VALUES\
 ('John Doe', '123 Main St, Springfield, IL', '+1-555-1234', '62701', 'john.doe@example.com', '1985-07-20'),\
@@ -102,7 +95,6 @@ VALUES\
 ('Alice Johnson', '654 Maple St, Star City, CA', '+1-555-3344', '94579', 'alice.johnson@example.com', '1995-08-10');\
 \
 \
--- Insertion de donn\'e9es dans la table bill\
 INSERT INTO `bibliotheque`.`bill` (`bill_number`, `bill_date`, `client_id`)\
 VALUES\
 (1, '2023-01-10', 1),\
@@ -111,7 +103,7 @@ VALUES\
 (4, '2023-04-25', 4),\
 (5, '2023-05-30', 5);\
 \
--- Insertion de donn\'e9es dans la table automobile_bill\
+\
 INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `serial_number`, `bill_number`)\
 VALUES\
 (24000, 1, '1HGBH41JXMN109186', 1),\

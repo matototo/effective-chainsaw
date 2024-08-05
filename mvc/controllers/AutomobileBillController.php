@@ -5,7 +5,6 @@ use App\Models\AutomobileBill;
 use App\Models\Automobile;
 use App\Models\Bill;
 use App\Models\Client;
-//use App\Models\Manufacturer;
 use App\Providers\View;
 use App\Providers\Validator;
 use DateTime;
@@ -64,14 +63,20 @@ class AutomobileBillController{
 
         $theCar = $auto->selectId($serial);
   
-        var_dump($data);
 
-        //$insertBill = $bill->insert($data);
+        $insertBill = $bill->insert($data);
 
+        $data['bill_number'] = $insertBill;
+
+
+        $insertAutoBill = $autoBill->insert($data);
+
+
+        if($insertBill && $insertAutoBill) {
+            return View::redirect('bill/show?id='.$insertBill);
+        }
     }
 }
 
-//FIXME: le insert pour la table bill marche pas
-//TODO: CSS
-//TODO: cheker les SQL les nom des tables le nom des colonnes pour que tout soit le meme entre les name="--" et le vrai nom de collonnes
+// J'ai changer le type de data pour la date dans bill bill_date pour simplifier le insert ! comme je me retrouve a avoir une date en string je ne voulais pas de conflits lors de l'insertion
 

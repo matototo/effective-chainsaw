@@ -2,16 +2,13 @@
 namespace App\Controllers;
 
 use App\Models\Automobile;
-//use App\Models\Manufacturer;
 use App\Providers\View;
 use App\Providers\Validator;
 
 class AutomobileController{
     public function index() {
         $automobile = new Automobile;
-        //$manufacturer = new Manufacturer; , ['manufacturers' => $selectManus]
         $selectAutos = $automobile->select('name');
-        //$selectManus = $manufacturer->select();
         View::render('automobile/index', ['automobiles' => $selectAutos]);
     }
 

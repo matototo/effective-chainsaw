@@ -6,6 +6,6 @@ class Client extends CRUD{
 
     protected $table = "client";
     protected $primaryKey = "id";
-    protected $fillable = ['name', 'address', 'phone', 'zip_code', 'email'];
+    protected $fillable = ['name', 'address', 'phone', 'zip_code', 'email', 'date_of_birth'];
     
 } 
