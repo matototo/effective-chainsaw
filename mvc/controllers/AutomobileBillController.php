@@ -73,4 +73,5 @@ class AutomobileBillController{
 
 //FIXME: le insert pour la table bill marche pas
 //TODO: CSS
+//TODO: cheker les SQL les nom des tables le nom des colonnes pour que tout soit le meme entre les name="--" et le vrai nom de collonnes
 

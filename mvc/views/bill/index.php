@@ -34,7 +34,7 @@
         </tbody>
     </table>
     <div class="buttons">
-        <a href="{{base}}/client" class="btn">Back</a>
+        <a href="{{base}}/client" class="btn back">Back</a>
         <a href="{{base}}/bill/create" class="btn">New Bill</a>
     </div>
 {{ include('layouts/footer.php')}}

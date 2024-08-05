@@ -40,6 +40,6 @@
             {% endif %}
             <input type="submit" class="btn" value="Save">
         </form>
-        <a href="{{base}}/client" class="btn">Back</a>
+        <a href="{{base}}/client" class="btn back">Back</a>
     </div>
 {{ include('layouts/footer.php')}}

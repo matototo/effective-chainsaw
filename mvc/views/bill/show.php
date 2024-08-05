@@ -1,6 +1,7 @@
 {{ include('layouts/header.php', {title:'Show Bill'})}}
     <div class="container">
         <h3>Bill number {{ bill.bill_number }}</h3>
+        <div class="show">
         <p><strong>Client : </strong>
         {% if bill.client_id == 1 %}
             <a href="{{base}}/client/show?id=1">John Doe</a></p>
@@ -16,8 +17,9 @@
             <p>woy</p>
         {% endif%}
         <p><strong>Date : </strong>{{ bill.bill_date}}</p>
+        </div>
         <div class="buttons">
-            <a href="{{base}}/bill" class="btn">Back</a>
+            <a href="{{base}}/bill" class="btn back">Back</a>
         </div>
     </div>
 {{ include('layouts/footer.php')}}
