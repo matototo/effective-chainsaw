@@ -40,7 +40,7 @@
             {% endif %}
             <div class="buttons">
                 <div>
-                    <a href="{{base}}/client" class="btn back">Back</a>
+                    <a href="{{base}}/client/show?id={{client.id}}" class="btn back">Back</a>
                 </div>
                 <div>
                     <input type="submit" class="btn" value="Save">

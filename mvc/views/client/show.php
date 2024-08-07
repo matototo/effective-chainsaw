@@ -10,7 +10,6 @@
             <p><strong>Date of birth : </strong>{{ client.date_of_birth }}</p>
         </div>
         <div class="buttons">
-            <a href="{{base}}/client" class="btn back">Back</a>
             <form action="{{base}}/client/delete" method="post">
                 <input type="hidden" name="id" value="{{ client.id }}">
                 <button class="btn red">Delete</button>

@@ -2,11 +2,10 @@
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww14200\viewh9080\viewkind0
+\margl1440\margr1440\vieww24240\viewh19380\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 \
-CREATE SCHEMA IF NOT EXISTS `bibliotheque` DEFAULT CHARACTER SET utf8 ;\
+\f0\fs24 \cf0 CREATE SCHEMA IF NOT EXISTS `bibliotheque` DEFAULT CHARACTER SET utf8 ;\
 USE `bibliotheque` ;\
 \
 \
@@ -16,13 +15,22 @@ CREATE TABLE IF NOT EXISTS `bibliotheque`.`manufacturer` (\
 	`address` VARCHAR(100) NOT NULL,\
 	`phone` VARCHAR(45) NOT NULL,\
 	`country_of_origin` VARCHAR(45) NOT NULL,\
-	`year_of_creation` DATE NOT NULL,\
+	`year_of_creation` VARCHAR(12) NOT NULL,\
 	`ranking` INT NOT NULL,\
 	PRIMARY KEY (`id`));\
 \pard\pardeftab720\partightenfactor0
 \cf0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
+\cf0 CREATE TABLE IF NOT EXISTS `bibliotheque`.`client` (\
+	`id` INT NOT NULL AUTO_INCREMENT,\
+	`name` VARCHAR(45) NOT NULL,\
+	`address` VARCHAR(45) NOT NULL,\
+	`phone` VARCHAR(45) NOT NULL,\
+	`zip_code` VARCHAR(12) NOT NULL,\
+	`email` VARCHAR(45) NOT NULL,\
+	`date_of_birth` VARCHAR(12) NOT NULL,\
+	PRIMARY KEY (`id`));	\
+\
 CREATE TABLE IF NOT EXISTS `bibliotheque`.`automobile` (\
 	`serial_number` VARCHAR(17) NOT NULL,\
 	`name` VARCHAR(45) NOT NULL,\
@@ -30,43 +38,14 @@ CREATE TABLE IF NOT EXISTS `bibliotheque`.`automobile` (\
 	`drive_train` VARCHAR(45) NOT NULL,\
 	`category` VARCHAR(45) NOT NULL,\
 	`type` VARCHAR(45) NOT NULL,\
-	`price` FLOAT NOT NULL,\
+	`price` INT NOT NULL,\
 	`description` TEXT NOT NULL,\
+	`automobile_bill_id` INT,\
 	`manufacturer_id` INT NOT NULL,\
 	FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(id),\
 	PRIMARY KEY (`serial_number`));\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 CREATE TABLE IF NOT EXISTS `bibliotheque`.`client` (\
-	`id` INT NOT NULL AUTO_INCREMENT,\
-	`name` VARCHAR(45) NOT NULL,\
-	`address` VARCHAR(45) NOT NULL,\
-	`phone` VARCHAR(45) NOT NULL,\
-	`zip_code` VARCHAR(10) NOT NULL,\
-	`email` VARCHAR(45) NOT NULL,\
-	`date_of_birth` VARCHAR(12) NOT NULL,\
-	PRIMARY KEY (`id`));	\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 CREATE TABLE IF NOT EXISTS `bibliotheque`.`bill` (\
-	`bill_number` INT NOT NULL AUTO_INCREMENT,\
-	`bill_date` VARCHAR(12) NOT NULL,\
-	`client_id` INT NOT NULL,\
-	FOREIGN KEY (client_id) REFERENCES client(id),\
-	PRIMARY KEY (`bill_number`));\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
-CREATE TABLE IF NOT EXISTS `bibliotheque`.`automobile_bill` (\
-	`id` INT NOT NULL AUTO_INCREMENT,\
-	`total` FLOAT NOT NULL,\
-	`qt` INT NOT NULL,\
-	`serial_number` VARCHAR(17) NOT NULL,\
-	`bill_number` INT NOT NULL,\
-	FOREIGN KEY (serial_number) REFERENCES automobile(serial_number),\
-	FOREIGN KEY (bill_number) REFERENCES bill(bill_number),\
-	PRIMARY KEY (`id`));\
-\
+-- pause \
 \
 INSERT INTO `bibliotheque`.`manufacturer` (`name`, `address`, `phone`, `country_of_origin`, `year_of_creation`, `ranking`)\
 VALUES\
@@ -76,16 +55,6 @@ VALUES\
 ('Honda', '2-1-1 Minami-Aoyama, Minato-ku, Tokyo 107-8556, Japan', '+81-3-3423-1111', 'Japan', '1948-09-24', 4),\
 ('Renault', '13-15 quai Alphonse Le Gallo, 92100 Boulogne-Billancourt, France', '+33-1-76-84-04-04', 'France', '1899-02-25', 5);\
 \
-\
-INSERT INTO `bibliotheque`.`automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`)\
-VALUES\
-('1HGBH41JXMN109186', 'Toyota Camry', '2020-01-15', 'FWD', 'Sedan', 'Gasoline', 24000, 'A reliable and comfortable midsize sedan.', 1),\
-('1HGCM82633A123456', 'Ford Mustang', '2021-05-20', 'RWD', 'Coupe', 'Gasoline', 36000, 'A classic American muscle car.', 2),\
-('WBA3A5C50DF123456', 'BMW 3 Series', '2019-08-10', 'RWD', 'Sedan', 'Diesel', 42000, 'A compact executive car known for its sporty handling.', 3),\
-('2HGFA16508H123456', 'Honda Civic', '2022-03-11', 'FWD', 'Sedan', 'Hybrid', 22000, 'A popular compact car with great fuel efficiency.', 4),\
-('VF1RFA00663412345', 'Renault Clio', '2018-11-05', 'FWD', 'Hatchback', 'Gasoline', 18000, 'A small and versatile hatchback.', 5);\
-\
-\
 INSERT INTO `bibliotheque`.`client` (`name`, `address`, `phone`, `zip_code`, `email`, `date_of_birth`)\
 VALUES\
 ('John Doe', '123 Main St, Springfield, IL', '+1-555-1234', '62701', 'john.doe@example.com', '1985-07-20'),\
@@ -94,23 +63,168 @@ VALUES\
 ('Maria Lopez', '321 Elm St, Gotham, NJ', '+1-555-1122', '07097', 'maria.lopez@example.com', '1980-05-25'),\
 ('Alice Johnson', '654 Maple St, Star City, CA', '+1-555-3344', '94579', 'alice.johnson@example.com', '1995-08-10');\
 \
+-- pause\
 \
-INSERT INTO `bibliotheque`.`bill` (`bill_number`, `bill_date`, `client_id`)\
+CREATE TABLE IF NOT EXISTS `bibliotheque`.`automobile_bill` (\
+	`id` INT NOT NULL AUTO_INCREMENT,\
+	`total` FLOAT NOT NULL,\
+	`qt` INT NOT NULL,\
+	`bill_date` VARCHAR(12),\
+	`serial_number` VARCHAR(17) NOT NULL,\
+	`client_id` INT NOT NULL,\
+	FOREIGN KEY (serial_number) REFERENCES automobile(serial_number),\
+	FOREIGN KEY (client_id) REFERENCES client(id),\
+	PRIMARY KEY (`id`));\
+\
+-- pause\
+\
+INSERT INTO `bibliotheque`.`automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
 VALUES\
-(1, '2023-01-10', 1),\
-(2, '2023-02-15', 2),\
-(3, '2023-03-20', 3),\
-(4, '2023-04-25', 4),\
-(5, '2023-05-30', 5);\
-\
-\
-INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `serial_number`, `bill_number`)\
+('1HGBH41JXMN109186', 'Toyota Camry', '2020-01-15', 'FWD', 'Sedan', 'Gasoline', 24000, 'A reliable and comfortable midsize sedan.', 1, 1);\
+INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
 VALUES\
-(24000, 1, '1HGBH41JXMN109186', 1),\
-(36000, 1, '1HGCM82633A123456', 2),\
-(42000, 1, 'WBA3A5C50DF123456', 3),\
-(22000, 1, '2HGFA16508H123456', 4),\
-(18000, 1, 'VF1RFA00663412345', 5);\
+(24000, 1, '2023-01-10', '1HGBH41JXMN109186', 1);\
+INSERT INTO `bibliotheque`.`automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
+VALUES\
+('1HGCM82633A123456', 'Ford Mustang', '2021-05-20', 'RWD', 'Coupe', 'Gasoline', 36000, 'A classic American muscle car.', 2, 2);\
+INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
+VALUES\
+(36000, 1, '2023-02-15', '1HGCM82633A123456', 2);\
+INSERT INTO `bibliotheque`.`automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
+VALUES\
+('WBA3A5C50DF123456', 'BMW 3 Series', '2019-08-10', 'RWD', 'Sedan', 'Diesel', 42000, 'A compact executive car known for its sporty handling.', 3 , 3);\
+INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
+VALUES\
+(42000, 1, '2023-03-20', 'WBA3A5C50DF123456', 3);\
+INSERT INTO `bibliotheque`.`automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
+VALUES\
+('2HGFA16508H123456', 'Honda Civic', '2022-03-11', 'FWD', 'Sedan', 'Hybrid', 22000, 'A popular compact car with great fuel efficiency.', 4, 4);\
+INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
+VALUES\
+(22000, 1, '2023-04-25', '2HGFA16508H123456', 4);\
+INSERT INTO `bibliotheque`.`automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
+VALUES\
+('VF1RFA00663412345', 'Renault Clio', '2018-11-05', 'FWD', 'Hatchback', 'Gasoline', 18000, 'A small and versatile hatchback.', 5, 5);\
+INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
+VALUES\
+(18000, 1, '2023-05-30', 'VF1RFA00663412345', 5);\
+\
+-- pause\
+\
+ALTER TABLE `bibliotheque`.`automobile`\
+ADD FOREIGN KEY (automobile_bill_id) REFERENCES automobile_bill(id);\
 \
 \
-}
+\
+\
+\
+\
+\
+\
+POUR WEBDEV\
+\
+\
+CREATE TABLE IF NOT EXISTS `manufacturer` (\
+	`id` INT NOT NULL AUTO_INCREMENT,\
+	`name` VARCHAR(45) NOT NULL,\
+	`address` VARCHAR(100) NOT NULL,\
+	`phone` VARCHAR(45) NOT NULL,\
+	`country_of_origin` VARCHAR(45) NOT NULL,\
+	`year_of_creation` VARCHAR(12) NOT NULL,\
+	`ranking` INT NOT NULL,\
+	PRIMARY KEY (`id`));\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 CREATE TABLE IF NOT EXISTS `client` (\
+	`id` INT NOT NULL AUTO_INCREMENT,\
+	`name` VARCHAR(45) NOT NULL,\
+	`address` VARCHAR(45) NOT NULL,\
+	`phone` VARCHAR(45) NOT NULL,\
+	`zip_code` VARCHAR(12) NOT NULL,\
+	`email` VARCHAR(45) NOT NULL,\
+	`date_of_birth` VARCHAR(12) NOT NULL,\
+	PRIMARY KEY (`id`));	\
+\
+CREATE TABLE IF NOT EXISTS `automobile` (\
+	`serial_number` VARCHAR(17) NOT NULL,\
+	`name` VARCHAR(45) NOT NULL,\
+	`year` DATE NOT NULL,\
+	`drive_train` VARCHAR(45) NOT NULL,\
+	`category` VARCHAR(45) NOT NULL,\
+	`type` VARCHAR(45) NOT NULL,\
+	`price` INT NOT NULL,\
+	`description` TEXT NOT NULL,\
+	`automobile_bill_id` INT NOT NULL,\
+	`manufacturer_id` INT NOT NULL,\
+	FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(id),\
+	PRIMARY KEY (`serial_number`));\
+\
+-- pause\
+\
+INSERT INTO `manufacturer` (`name`, `address`, `phone`, `country_of_origin`, `year_of_creation`, `ranking`)\
+VALUES\
+('Toyota', '1 Toyota-cho, Toyota City, Aichi 471-8571, Japan', '+81-565-28-2121', 'Japan', '1937-08-28', 1),\
+('Ford', 'P.O. Box 6248, Dearborn, MI 48126, USA', '+1-800-392-3673', 'USA', '1903-06-16', 2),\
+('BMW', 'Petuelring 130, 80788 Munich, Germany', '+49-89-382-0', 'Germany', '1916-03-07', 3),\
+('Honda', '2-1-1 Minami-Aoyama, Minato-ku, Tokyo 107-8556, Japan', '+81-3-3423-1111', 'Japan', '1948-09-24', 4),\
+('Renault', '13-15 quai Alphonse Le Gallo, 92100 Boulogne-Billancourt, France', '+33-1-76-84-04-04', 'France', '1899-02-25', 5);\
+\
+INSERT INTO -`.`client` (`name`, `address`, `phone`, `zip_code`, `email`, `date_of_birth`)\
+VALUES\
+('John Doe', '123 Main St, Springfield, IL', '+1-555-1234', '62701', 'john.doe@example.com', '1985-07-20'),\
+('Jane Smith', '456 Oak St, Metropolis, NY', '+1-555-5678', '10001', 'jane.smith@example.com', '1990-03-15'),\
+('Carlos Garcia', '789 Pine St, Smallville, KS', '+1-555-9101', '67524', 'carlos.garcia@example.com', '1975-12-30'),\
+('Maria Lopez', '321 Elm St, Gotham, NJ', '+1-555-1122', '07097', 'maria.lopez@example.com', '1980-05-25'),\
+('Alice Johnson', '654 Maple St, Star City, CA', '+1-555-3344', '94579', 'alice.johnson@example.com', '1995-08-10');\
+\
+-- pause\
+\
+CREATE TABLE IF NOT EXISTS `automobile_bill` (\
+	`id` INT NOT NULL AUTO_INCREMENT,\
+	`total` FLOAT NOT NULL,\
+	`qt` INT NOT NULL,\
+	`bill_date` VARCHAR(12),\
+	`serial_number` VARCHAR(17) NOT NULL,\
+	`client_id` INT NOT NULL,\
+	FOREIGN KEY (serial_number) REFERENCES automobile(serial_number),\
+	FOREIGN KEY (client_id) REFERENCES client(id),\
+	PRIMARY KEY (`id`));\
+\
+-- pause\
+\
+INSERT INTO `automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
+VALUES\
+('1HGBH41JXMN109186', 'Toyota Camry', '2020-01-15', 'FWD', 'Sedan', 'Gasoline', 24000, 'A reliable and comfortable midsize sedan.', 1, 1);\
+INSERT INTO `automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
+VALUES\
+(24000, 1, '2023-01-10', '1HGBH41JXMN109186', 1);\
+INSERT INTO `automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
+VALUES\
+('1HGCM82633A123456', 'Ford Mustang', '2021-05-20', 'RWD', 'Coupe', 'Gasoline', 36000, 'A classic American muscle car.', 2, 2);\
+INSERT INTO `automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
+VALUES\
+(36000, 1, '2023-02-15', '1HGCM82633A123456', 2);\
+INSERT INTO `automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
+VALUES\
+('WBA3A5C50DF123456', 'BMW 3 Series', '2019-08-10', 'RWD', 'Sedan', 'Diesel', 42000, 'A compact executive car known for its sporty handling.', 3 , 3);\
+INSERT INTO `automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
+VALUES\
+(42000, 1, '2023-03-20', 'WBA3A5C50DF123456', 3);\
+INSERT INTO `automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
+VALUES\
+('2HGFA16508H123456', 'Honda Civic', '2022-03-11', 'FWD', 'Sedan', 'Hybrid', 22000, 'A popular compact car with great fuel efficiency.', 4, 4);\
+INSERT INTO `automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
+VALUES\
+(22000, 1, '2023-04-25', '2HGFA16508H123456', 4);\
+INSERT INTO `automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
+VALUES\
+('VF1RFA00663412345', 'Renault Clio', '2018-11-05', 'FWD', 'Hatchback', 'Gasoline', 18000, 'A small and versatile hatchback.', 5, 5);\
+INSERT INTO `automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
+VALUES\
+(18000, 1, '2023-05-30', 'VF1RFA00663412345', 5);\
+\
+-- pause\
+\
+ALTER TABLE `automobile`\
+ADD FOREIGN KEY (automobile_bill_id) REFERENCES automobile_bill(id);}

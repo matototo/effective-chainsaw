@@ -24,8 +24,7 @@ Route::get('/bill', 'AutomobileBillController@index');
 Route::get('/bill/create', 'AutomobileBillController@create');
 Route::post('/bill/create', 'AutomobileBillController@store');
 Route::get('/bill/show', 'AutomobileBillController@show');
+Route::post('/bill/delete', 'AutomobileBillController@specialdelete');
 
-// Bill controller
-//Route::get('bill/show', 'BillController@show');
 
 Route::dispatch();

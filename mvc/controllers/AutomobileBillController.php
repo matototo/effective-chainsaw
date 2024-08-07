@@ -12,8 +12,21 @@ use DateTime;
 class AutomobileBillController{
     public function index() {
         $automobileBill = new AutomobileBill;
+        $car = new Automobile;
         $select = $automobileBill->select();
-        View::render('bill/index', ['bills' =>$select]);
+        
+        $i = 0;
+        $cars = [];
+        foreach ($select as $bill) {
+            $serial = $bill['serial_number'];
+
+            $currentCar = $car->selectId($serial);
+
+            $cars[$i] = $currentCar;
+            $i++;
+        }
+
+        View::render('bill/index', ['bills' =>$select, 'cars'=>$cars]);
     }
 
     public function create() {
@@ -27,10 +40,15 @@ class AutomobileBillController{
 
     public function show($data = []){
         if(isset($_GET['id']) && $data['id']!=null){
-            $bill = new Bill;
-            $selectId = $bill->selectId($data['id']);
-            if($selectId){
-                return View::render('bill/show', ['bill'=>$selectId]);
+            $bill = new AutomobileBill;
+            $car = new Automobile;
+            $client = new Client;
+            $selectBill = $bill->selectId($data['id']);
+            $name = $client->selectId($selectBill['client_id']);
+            $currentCar = $car->selectId($selectBill['serial_number']);
+            
+            if($selectBill){
+                return View::render('bill/show', ['bill'=>$selectBill, 'car' => $currentCar, 'client' => $name]);
             }else{
                 return View::render('error');
             }
@@ -43,40 +61,34 @@ class AutomobileBillController{
     public function store($data=[]){
 
         $auto = new Automobile;
-        $autoBill = new AutomobileBill;
-        $bill = new Bill;
+        $bill = new AutomobileBill;
         $client = new Client;
         $currentClient = $client->selectId($data['client_id']);;
 
         $currentAuto = $auto->select();
-
         $currentAuto = $currentAuto[0];
-
         $data['total'] = $data['qt'] * $currentAuto['price'];
-
         $currentDateTime = new DateTime('now');
         $currentDate = $currentDateTime->format('Y-m-d');
-
         $data['bill_date'] = $currentDate;
-
         $serial = $currentAuto['serial_number'];
-
         $theCar = $auto->selectId($serial);
-  
-
         $insertBill = $bill->insert($data);
 
-        $data['bill_number'] = $insertBill;
-
-
-        $insertAutoBill = $autoBill->insert($data);
-
-
-        if($insertBill && $insertAutoBill) {
+        if($insertBill) {
             return View::redirect('bill/show?id='.$insertBill);
+        }
+    }
+
+    public function specialdelete($data){
+        $bill = new AutomobileBill;
+        $delete = $bill->delete($data['id']);
+        if($delete){
+            return View::redirect('bill');
+        }else{
+            return View::render('error');
         }
     }
 }
 
 // J'ai changer le type de data pour la date dans bill bill_date pour simplifier le insert ! comme je me retrouve a avoir une date en string je ne voulais pas de conflits lors de l'insertion
-

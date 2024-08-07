@@ -312,6 +312,10 @@ footer {
     text-decoration: none;
 }
 
+.qt {
+    max-width: 40px;
+}
+
 
 /*
 https://codetheweb.blog/style-a-navigation-bar-css/
