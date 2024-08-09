@@ -10,8 +10,8 @@
                 {% endfor %}
                 </select>
             </label>
-            {% if errors.name is defined %}
-                <span class="error">{{ errors.name }}</span>
+            {% if errors.serial_number is defined %}
+                <span class="error">{{ errors.serial_number }}</span>
             {% endif %}
             <label>Quantity
                 <input type="text" name="qt" value="{{ automobile_bill.qt}}">
@@ -29,7 +29,7 @@
             </label>
             <div class="buttons">
                 <div>
-                    <a href="{{base}}/client" class="btn back">Back</a>
+                    <a href="{{base}}/bill" class="btn back">Back</a>
                 </div>
                 <div>
                     <input type="submit" class="btn" value="Save">

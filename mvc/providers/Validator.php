@@ -27,14 +27,14 @@ class Validator {
 
     public function max($length){
         if(strlen($this->value) > $length){
-            $this->errors[$this->key] = "$this->name must be less than $length characters";
+            $this->errors[$this->key] = "$this->name must be less than $length character(s)";
         }
         return $this;
     }
 
     public function min($length){
         if(strlen($this->value) < $length){
-            $this->errors[$this->key] = "$this->name must be more than $length characters";
+            $this->errors[$this->key] = "$this->name must be more than $length character(s)";
         }
         return $this;
     }
@@ -44,6 +44,12 @@ class Validator {
             $this->errors[$this->key] = "Invalid $this->name format";
         }
         return $this;
+    }
+
+    public function number(){
+        if(!is_numeric($this->value) && !filter_var($this->value, FILTER_SANITIZE_NUMBER_FLOAT)){
+            $this->errors[$this->key] = "Enter a valid number";
+        }
     }
 
     public function isSuccess(){

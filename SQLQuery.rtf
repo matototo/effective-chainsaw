@@ -5,7 +5,9 @@
 \margl1440\margr1440\vieww24240\viewh19380\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 CREATE SCHEMA IF NOT EXISTS `bibliotheque` DEFAULT CHARACTER SET utf8 ;\
+\f0\fs24 \cf0 -- disable foreign key check\
+\
+CREATE SCHEMA IF NOT EXISTS `bibliotheque` DEFAULT CHARACTER SET utf8 ;\
 USE `bibliotheque` ;\
 \
 \
@@ -68,7 +70,7 @@ VALUES\
 CREATE TABLE IF NOT EXISTS `bibliotheque`.`automobile_bill` (\
 	`id` INT NOT NULL AUTO_INCREMENT,\
 	`total` FLOAT NOT NULL,\
-	`qt` INT NOT NULL,\
+	`qt` INT,\
 	`bill_date` VARCHAR(12),\
 	`serial_number` VARCHAR(17) NOT NULL,\
 	`client_id` INT NOT NULL,\
@@ -89,7 +91,7 @@ VALUES\
 ('1HGCM82633A123456', 'Ford Mustang', '2021-05-20', 'RWD', 'Coupe', 'Gasoline', 36000, 'A classic American muscle car.', 2, 2);\
 INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
 VALUES\
-(36000, 1, '2023-02-15', '1HGCM82633A123456', 2);\
+(72000, 2, '2023-02-15', '1HGCM82633A123456', 2);\
 INSERT INTO `bibliotheque`.`automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
 VALUES\
 ('WBA3A5C50DF123456', 'BMW 3 Series', '2019-08-10', 'RWD', 'Sedan', 'Diesel', 42000, 'A compact executive car known for its sporty handling.', 3 , 3);\
@@ -101,13 +103,13 @@ VALUES\
 ('2HGFA16508H123456', 'Honda Civic', '2022-03-11', 'FWD', 'Sedan', 'Hybrid', 22000, 'A popular compact car with great fuel efficiency.', 4, 4);\
 INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
 VALUES\
-(22000, 1, '2023-04-25', '2HGFA16508H123456', 4);\
+(66000, 3, '2023-04-25', '2HGFA16508H123456', 4);\
 INSERT INTO `bibliotheque`.`automobile` (`serial_number`, `name`, `year`, `drive_train`, `category`, `type`, `price`, `description`, `manufacturer_id`, `automobile_bill_id`)\
 VALUES\
 ('VF1RFA00663412345', 'Renault Clio', '2018-11-05', 'FWD', 'Hatchback', 'Gasoline', 18000, 'A small and versatile hatchback.', 5, 5);\
 INSERT INTO `bibliotheque`.`automobile_bill` (`total`, `qt`, `bill_date`, `serial_number`, `client_id`)\
 VALUES\
-(18000, 1, '2023-05-30', 'VF1RFA00663412345', 5);\
+(39000, 2, '2023-05-30', 'VF1RFA00663412345', 5);\
 \
 -- pause\
 \

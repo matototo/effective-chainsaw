@@ -14,18 +14,7 @@ class AutomobileBillController{
         $automobileBill = new AutomobileBill;
         $car = new Automobile;
         $select = $automobileBill->select();
-        
-        $i = 0;
-        $cars = [];
-        foreach ($select as $bill) {
-            $serial = $bill['serial_number'];
-
-            $currentCar = $car->selectId($serial);
-
-            $cars[$i] = $currentCar;
-            $i++;
-        }
-
+        $cars = $car->select();
         View::render('bill/index', ['bills' =>$select, 'cars'=>$cars]);
     }
 
@@ -63,21 +52,33 @@ class AutomobileBillController{
         $auto = new Automobile;
         $bill = new AutomobileBill;
         $client = new Client;
-        $currentClient = $client->selectId($data['client_id']);;
-
-        $currentAuto = $auto->select();
-        $currentAuto = $currentAuto[0];
-        $data['total'] = $data['qt'] * $currentAuto['price'];
-        $currentDateTime = new DateTime('now');
-        $currentDate = $currentDateTime->format('Y-m-d');
-        $data['bill_date'] = $currentDate;
-        $serial = $currentAuto['serial_number'];
-        $theCar = $auto->selectId($serial);
-        $insertBill = $bill->insert($data);
-
-        if($insertBill) {
-            return View::redirect('bill/show?id='.$insertBill);
+        $currentClient = $client->selectId($data['client_id']);
+        $validator = new Validator;
+        $validator->field('serial_number', $data['serial_number'])->required();
+        $validator->field('client_id', $data['client_id'])->required();
+        $validator->field('qt', $data['qt'])->number();
+        if($validator->isSuccess()) {
+            $currentAuto = $auto->select();
+            $currentAuto = $currentAuto[0];
+            $data['total'] = $data['qt'] * $currentAuto['price'];
+            $currentDateTime = new DateTime('now');
+            $currentDate = $currentDateTime->format('Y-m-d');
+            $data['bill_date'] = $currentDate;
+            $serial = $currentAuto['serial_number'];
+            $theCar = $auto->selectId($serial);
+            $insertBill = $bill->insert($data);
+    
+            if($insertBill) {
+                return View::redirect('bill/show?id='.$insertBill);
+            }
+        }else{
+            $errors = $validator->getErrors();
+            $cars = $auto->select();
+            $names = $client->select();
+            return View::render('bill/create', ['errors'=>$errors, 'cars' => $cars, 'clients' => $names]);
         }
+
+
     }
 
     public function specialdelete($data){
