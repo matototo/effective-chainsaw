@@ -24,6 +24,8 @@
     </table>
     <div class="buttons">
         <div></div>
+        {% if session.privilege_id == 1 %}
         <a href="{{base}}/client/create" class="btn">New Client</a>
+        {% endif %}
     </div>
 {{ include('layouts/footer.php')}}

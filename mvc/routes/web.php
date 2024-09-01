@@ -26,5 +26,21 @@ Route::post('/bill/create', 'AutomobileBillController@store');
 Route::get('/bill/show', 'AutomobileBillController@show');
 Route::post('/bill/delete', 'AutomobileBillController@specialdelete');
 
+// User controller
+Route::get('/user/create', 'UserController@create');
+Route::post('/user/create', 'UserController@store');
+
+// Authentificator controller
+Route::get('/login', 'AuthController@index');
+Route::post('/login', 'AuthController@store');
+Route::get('/forgot', 'AuthController@forgot');
+Route::post('/forgot', 'AuthController@reset');
+Route::get('/logout', 'AuthController@delete');
+
+// Logbook controller
+Route::get('/log', 'LogbookController@index');
+
+
+
 
 Route::dispatch();

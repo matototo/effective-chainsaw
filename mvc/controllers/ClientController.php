@@ -4,15 +4,26 @@ namespace App\Controllers;
 use App\Models\Client;
 use App\Providers\View;
 use App\Providers\Validator;
+use App\Providers\Auth;
 
 class ClientController{
+
+    public function __construct()
+    {
+        Auth::session();
+    }
+    
     public function index() {
         $client = new Client;
         $select = $client->select();
-        View::render('client/index', ['clients' =>$select]);
+        if($select){
+            return View::render('client/index', ['clients'=> $select]);
+        }
+        return View::render('error');
     }
 
     public function create() {
+        Auth::session();
         View::render('client/create');
     }
 
@@ -25,7 +36,6 @@ class ClientController{
             }else{
                 return View::render('error');
             }
-
         }else{
             return View::render('error', ['msg'=>'Client not found!']);
         }    

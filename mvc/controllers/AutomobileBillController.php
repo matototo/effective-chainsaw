@@ -7,9 +7,16 @@ use App\Models\Bill;
 use App\Models\Client;
 use App\Providers\View;
 use App\Providers\Validator;
+use App\Providers\Auth;
 use DateTime;
 
 class AutomobileBillController{
+
+    public function __construct()
+    {
+        Auth::session();
+    }
+    
     public function index() {
         $automobileBill = new AutomobileBill;
         $car = new Automobile;
@@ -75,7 +82,10 @@ class AutomobileBillController{
             $errors = $validator->getErrors();
             $cars = $auto->select();
             $names = $client->select();
-            return View::render('bill/create', ['errors'=>$errors, 'cars' => $cars, 'clients' => $names]);
+            return View::render('bill/create', ['errors'=>$errors, 'cars' => $cars, 'clients' => $names, 'bill' => $data]);
+            // print_r($data);
+            // print_r($names);
+            // die();
         }
 
 
@@ -91,5 +101,3 @@ class AutomobileBillController{
         }
     }
 }
-
-// J'ai changer le type de data pour la date dans bill bill_date pour simplifier le insert ! comme je me retrouve a avoir une date en string je ne voulais pas de conflits lors de l'insertion

@@ -141,7 +141,8 @@ tbody tr:hover {
 }
 
 .container {
-    width: 400px;
+    min-width: 400px;
+    width: fit-content;
     margin: 0 auto;
     border: 1px solid var(--couleur-gris2);
     padding: 15px 30px 15px 30px;

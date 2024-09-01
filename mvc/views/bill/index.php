@@ -31,6 +31,8 @@
     </table>
     <div class="buttons">
         <a href="{{base}}/client" class="btn back">Back</a>
+        {% if session.privilege_id == 1 %}
         <a href="{{base}}/bill/create" class="btn">New Bill</a>
+        {% endif %}
     </div>
 {{ include('layouts/footer.php')}}

@@ -88,16 +88,25 @@ abstract class CRUD extends \PDO{
         }
     }
 
-    final public function specialdelete($value) {
-        if($this->selectId($value)){
-            $sql = "DELETE FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
-            $stmt= $this->prepare($sql);
-            $stmt->bindValue(":$this->primaryKey", $value);
-            if($stmt->execute()){
-                return true;
-            }else{
-                return false;
-            }
+    final public function alter(){
+        $sql = "ALTER TABLE $this->table ADD COLUMN temp_password VARCHAR(45) NULL after password";
+        $stmt= $this->prepare($sql);
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    // implementer cette validation pour les autres champs ou je verifier si cest unique (genre formulaire)
+    public function unique($field, $value){
+        $sql = "SELECT * FROM $this->table WHERE $field = :$field";
+        $stmt= $this->prepare($sql);
+        $stmt->bindValue(":$field", $value);
+        $stmt->execute();
+        $count = $stmt->rowCount();
+        if($count == 1){
+            return $stmt->fetch();
         }else{
             return false;
         }
